@@ -1,0 +1,32 @@
+{% extends 'parent/base.html' %}
+{% block title %} Post List {% endblock %}
+
+{% block content %}
+    <form method="get" action="{% url 'blog:search_post' %}" class="search-form">
+    <input type="text" name="query" placeholder="Enter the desired text..." class="search-input">
+    <input type="submit" value="Search" class="search-button">
+    </form>
+    {% include 'partials/slider.html' %}
+    <div class="post-list-header">
+        <h1 class="post-list-title">Post List</h1>
+    </div>
+
+    <ol class="post-list" style="--length: {{ Posts|length }}" role="list">
+        {% for post in Posts %}
+        <li class="post-item" style="--i: {{ forloop.counter }}">
+            <h3 class="post-item-title">
+                <a href="{{ post.get_absolut_url }}" class="post-item-link">{{ post.title }}</a>
+            </h3>
+            <p class="post-item-description">{{ post.description|truncatewords:2 }}</p>
+
+            {% with post.images.first as first_image %}
+                {% if first_image and first_image.image_field and first_image.image_field.url %}
+                    <img class="post-item-image" src="{{ first_image.image_field.url }}" alt="{{ first_image.title }}">
+                {% endif %}
+            {% endwith %}
+        </li>
+        {% endfor %}
+    </ol>
+
+    {% include "partials/paginators.html" with page=page_obj %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+  <div class="register-success-box">
+    <h3 class="welcome-title">Welcome, {{ user }}</h3>
+    <p class="success-message">Your registration was successful.</p>
+    <a href="{% url 'blog:login' %}" class="login-button">Login</a>
+  </div>
+{% endblock %}

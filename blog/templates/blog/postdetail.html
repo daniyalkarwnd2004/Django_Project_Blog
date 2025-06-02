@@ -1,0 +1,81 @@
+{% extends 'parent/base.html' %}
+{% load jformat %}
+{% load blog_tags %}
+{% block title %} post details {% endblock %}
+
+{% block content %}
+<div class="glass_post_wrapper">
+    <h2 class="glass_post_title">{{ post.title }}</h2>
+<div class="glass_post_content">
+
+    {% with post.images.all|first as image_first %}
+        {% if image_first and image_first.image_field and image_first.image_field.url %}
+            <img class="glass_main_image" src="{{ image_first.image_field.url }}" alt="{{ image_first.title }}">
+        {% endif %}
+    {% endwith %}
+
+    <p class="glass_post_description">{{ post.description | sensor }}</p>
+
+<div class="glass_post_gallery-slider">
+    {% for img in post.images.all|slice:"1:" %}
+        {% if img.image_field and img.image_field.url %}
+            <a href="#img{{ img.id }}">
+                <img class="glass_sub_image" src="{{ img.image_field.url }}" alt="{{ img.title }}">
+            </a>
+
+            <!-- لایت‌باکس استاتیک با anchor -->
+            <div class="lightbox" id="img{{ img.id }}">
+                <a href="#" class="lightbox-close">&times;</a>
+                <img class="lightbox-img" src="{{ img.image_field.url }}" alt="{{ img.title }}">
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+</div>
+
+    <hr>
+    <div class="glass_post_meta">
+        <p><a href="{% url 'blog:user_profile' post.author.username %}" class="black-link">Login to profile({{post.author}})</a></p>
+        <p>Author: {{ post.author }}</p>
+        <p>Date: {{ post.updated | jformat:'%Y/%m/%d' }}</p>
+        <p>Time: {{ post.updated | jformat:'%H:%M' }}</p>
+        <p>Reading Time: {{ post.reading_time }}</p>
+    </div>
+</div>
+
+<hr>
+
+<h2 class="glass_comment_title">{{ comment.count }} Comments</h2>
+
+<div class="glass_comment_list">
+    {% for cm in comment %}
+        <div class="glass_comment_item">
+            <p class="glass_comment_author">Name: {{ cm.name }}</p>
+            <p class="glass_comment_text">Comment: {{ cm.body|linebreaks }}</p>
+        </div>
+        <hr>
+    {% empty %}
+        <p class="glass_no_comment">No Comments</p>
+    {% endfor %}
+</div>
+
+<form method="post" action="{% url 'blog:comment_post' post.id %}">
+    {% csrf_token %}
+    <div class="glass_comment_form">
+        <div class="glass_form_left">
+            <label for="name" class="glass_label">Name:</label>
+            <input type="text" name="name" placeholder="Enter your name"
+                   class="glass_input"
+                   {% if form.name.value %} value="{{ form.name.value }}" {% endif %}>
+            <input type="submit" value="Add Comment" class="glass_submit_btn">
+        </div>
+
+        <div class="glass_form_right">
+            <label for="body" class="glass_label">Comment:</label>
+            <textarea name="body" class="glass_textarea" placeholder="Write your comment here..."></textarea>
+        </div>
+    </div>
+</form>
+{% endblock %}

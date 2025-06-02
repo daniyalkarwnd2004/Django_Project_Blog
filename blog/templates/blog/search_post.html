@@ -1,0 +1,38 @@
+{% extends 'parent/base.html' %}
+
+{% block title %} search post {% endblock %}
+
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% block content %}
+
+        {% if query %}
+            <h4>Number of posts: {{results.count}}</h4>
+        {% endif %}
+        <h4>لینک های مربوط به پست ها</h4>
+        {% for post in results %}
+        <ul>
+            <li><a href="{{ post.get_absolut_url }}">{{ post.title }}</a></li>
+            <li><p>{{ post.description|truncatewords:10 }}</p></li>
+            {% empty %}
+            <li><p>هیچ پستی یافت نشد</p></li>
+        </ul>
+        {% endfor %}
+        <h4>لینک های مربوط به تصاویر پست ها</h4>
+        {% for post_image in results_image %}
+            <ul>
+                <li><a href="{{ post_image.post.get_absolut_url }}">{{ post_image.title }}</a></li>
+                <li><p>{{ post_image.description|truncatewords:5 }}</p></li>
+
+            {% empty %}
+                <li><p>هیچ پستی یافت نشد</p></li>
+            </ul>
+        {% endfor %}
+
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+<div class="slider">
+  <div class="slide"><img src="https://picsum.photos/id/1011/900/400" alt=""></div>
+  <div class="slide"><img src="https://picsum.photos/id/1015/900/400" alt=""></div>
+  <div class="slide"><img src="https://picsum.photos/id/1025/900/400" alt=""></div>
+</div>
+
+<style>
+  .slider {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 400px;
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  .slide {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+</style>
+
+<script>
+  let slides = document.querySelectorAll('.slide');
+  let index = 0;
+
+  function showSlide(i) {
+    slides.forEach(slide => slide.style.display = 'none');
+    slides[i].style.display = 'block';
+  }
+
+  function nextSlide() {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  }
+
+  showSlide(index);
+  setInterval(nextSlide, 4000);
+</script>

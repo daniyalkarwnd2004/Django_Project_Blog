@@ -1,0 +1,46 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}Edit Account{% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data" class="form-card">
+  {% csrf_token %}
+
+  <h2>User Information</h2>
+  <div class="form-group">
+    <label for="id_first_name">First Name</label>
+    {{ user_form.first_name }}
+  </div>
+  <div class="form-group">
+    <label for="id_last_name">Last Name</label>
+    {{ user_form.last_name }}
+  </div>
+  <div class="form-group">
+    <label for="id_email">Email</label>
+    {{ user_form.email }}
+  </div>
+
+  <hr>
+
+  <h2>Profile Information</h2>
+  <div class="form-group">
+    <label for="id_bio">Bio</label>
+    {{ account_form.bio }}
+  </div>
+  <div class="form-group">
+    <label for="id_birth">Date of Birth</label>
+    {{ account_form.birth }}
+  </div>
+  <div class="form-group">
+    <label for="id_job">Job</label>
+    {{ account_form.job }}
+  </div>
+  <div class="form-group">
+    <label for="id_photo">Profile Photo</label>
+    <p>{{ account_form.photo }}</p>
+  </div>
+
+  <button type="submit" class="submit-btn">Save Changes</button>
+</form>
+
+{% endblock %}

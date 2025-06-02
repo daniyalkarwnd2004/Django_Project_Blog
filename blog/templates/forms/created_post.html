@@ -1,0 +1,49 @@
+{% extends 'parent/base.html' %}
+{% block title %}User Post{% endblock %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Details</title>
+
+</head>
+<body>
+    {% block content %}
+        <div class="form-container">
+            <h2>Post Your Message</h2>
+            <form method="POST" enctype="multipart/form-data" class="custom-form">
+            {% csrf_token %}
+    
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title" class="fancy-input" {% if form.title.value %} value="{{form.title.value}}" {% endif %}>
+
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" class="fancy-textarea">{% if form.description.value %}{{ form.description.value }}{% endif %}</textarea>
+
+                <label for="reading_time">Reading Time:</label>
+                <input type="number" name="reading_time" id="reading_time" class="fancy-input" min="0" {% if form.reading_time.value %} value="{{form.reading_time.value}}" {% endif %}>
+
+                <label for="image1">Image 1:</label>
+                <input type="file" name="image1" id="image1" class="fancy-file">
+
+                <label for="image2">Image 2:</label>
+                <input type="file" name="image2" id="image2" class="fancy-file">
+
+                <input type="submit" value="Submit" class="fancy-button">
+            </form>
+
+            {% if form.errors %}
+                <div class="error-box">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p><strong>{{ field.label }}:</strong> {{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,7 @@
+<div>
+    <p>user active: {{ user_active.username }}</p>
+    <p>number post: {{ user_active.post_count }}</p>
+    {% for post in latest_posts %}
+        <p><a href="{{post.get_absolut_url}}">{{post.title}}</a></p>
+    {% endfor %}
+</div>

@@ -1,0 +1,58 @@
+{% extends 'parent/base.html' %}
+{% block title %} User Profile {% endblock %}
+
+{% block content %}
+<style>
+    .profile-container {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(to bottom right, #ffffff, #f0f0f0);
+        text-align: center;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .profile-photo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        margin-bottom: 20px;
+    }
+
+    .profile-photo:hover {
+        transform: scale(1.1) rotate(2deg);
+    }
+
+    .profile-info p {
+        font-size: 16px;
+        margin: 8px 0;
+        color: #333;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="profile-container">
+    <img src="{{ account.photo.url }}" alt="User photo" class="profile-photo">
+    <div class="profile-info">
+        <p><strong>User:</strong> {{ user.username }}</p>
+        <p><strong>First Name:</strong> {{ user.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Job:</strong> {{ account.job }}</p>
+        <p><strong>Bio:</strong> {{ account.bio }}</p>
+        <p><strong>Posts:</strong></p>
+        {% for post in posts %}
+            <a href="{{post.get_absolut_url}}" class="black-link">{{post.title}}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

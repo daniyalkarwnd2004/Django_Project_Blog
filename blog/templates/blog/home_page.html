@@ -1,0 +1,50 @@
+{% extends 'parent/base.html' %}
+{% load blog_tags %}
+{% load jformat %}
+{% block title %} HOME {% endblock %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+{% block content %}
+<form method="get" action="{% url 'blog:search_post' %}" class="search-form">
+    <input type="text" name="query" placeholder="Enter the desired text..." class="search-input">
+    <input type="submit" value="Search" class="search-button">
+</form>
+<br>
+{% include 'partials/slider.html' %}
+<br>
+<div class="card">
+    <h2>Statistics from the site</h2>
+    <p>Number of posts: {% title_post %}</p>
+    <p>Number of comments: {% title_comment %}</p>
+    <p>Last post date: {% last_post %}</p>
+    <p>Minimum time to study: {% min_reading_time %}</p>
+    <p>Maximum time to study: {% max_reading_time %}</p>
+</div>
+
+<div class="card">
+    <h2>Active users</h2>
+    {% active_user %}
+</div>
+
+<div class="card">
+    <h2>Top posts</h2>
+    {% top_post as top %}
+    <p style="color:black">{% for posts_top in top %}</p>
+        <p><a href="{{ posts_top.get_absolut_url }}"  class="black-link">{{ posts_top.title }}</a></p>
+    {% endfor %}
+</div>
+
+<div class="card">
+    <h2>Post Random</h2>
+    <a href="{{ posts_top.get_absolut_url }}" class="black-link">{{ posts_top.title }}</a>
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+

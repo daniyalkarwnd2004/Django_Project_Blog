@@ -1,0 +1,20 @@
+<nav class="navbar">
+    {% csrf_token %}
+    <a class="a_nav" href="{% url 'blog:index' %}">Home</a>
+    <a class="a_nav" href="{% url 'blog:post_list' %}">Posts</a>
+    <a class="a_nav" href="{% url 'blog:ticket' %}">Ticket</a>
+    {% if user.is_authenticated %}
+        <a class="a_nav" href="{% url 'blog:profile' %}">Profile</a>
+        <a class="a_nav" href="{% url 'blog:edit_account' %}">Edit_Info</a>
+    {% endif %}
+
+
+    {% if user.is_authenticated %}
+        <span class="a_nav user-name" style="margin-left: 900px;">Hello, {{ user.username }}</span>
+        <a class="a_nav" href="{% url 'blog:logout' %}">Logout</a>
+    {% else %}
+        <a class="a_nav" href="{% url 'blog:login' %}" style="margin-left:1160px">Login</a>
+        <a class="a_nav" href="{% url 'blog:register' %}">Signup</a>
+    {% endif %}
+</nav>
+<br>

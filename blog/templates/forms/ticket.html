@@ -1,0 +1,74 @@
+{% extends 'parent/base.html' %}
+{% block title %} post list {% endblock %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+
+    </style>
+</head>
+<body>
+{% block content %}
+<br>
+    <form method="post">
+        {% csrf_token %}
+        <div class="page_ticket">
+            <h1 id="title_ticket">ticket form</h1>
+            <hr>
+            <br>
+            <label for="name" id="names" class="label_style">Eame and Family: </label>
+            <input type="text" name="name" required maxlength="250" id="input_ticket" placeholder="name and family"
+            {% if form.name.value %} value="{{form.name.value}}" {% endif %}>
+
+            <label for="email" class="label_style">Email: </label>
+            <input type="email" name="email" required maxlength="250" id="input_ticket" placeholder="email"
+            {% if form.email.value %} value="{{form.email.value}}" {% endif %}>
+
+            <br><br>
+            <label for="phone" class="label_style">Phone: </label>
+            <input type="text" name="phone" required maxlength="11" id="input_ticket" placeholder="phone"
+            {% if form.phone.value %} value="{{form.phone.value}}" {% endif %}>
+
+            <label for="subject" id="lable_subject" class="label_style">Subject: </label>
+            <select name="subject" id="subject">
+                <option value="offer">offer</option>
+                <option value="Criticism">Criticism</option>
+                <option value="Report">Report</option>
+            </select>
+
+
+            <br><br>
+            <label for="massage" class="label_style">massage: </label>
+            <br>
+            <br>
+            <textarea name="massage" id="massage_ticket">
+            {% if form.massage.value %} {{form.massage.value}} {% endif %}
+            </textarea>
+
+
+            <br><br><br>
+            <input type="submit" value="GO" id="request_ticket">
+        </div>
+    </form>
+    {% if form.errors %}
+        {% for fild in form %}
+            {% if fild.errors %}
+                {% for error in fild.errors %}
+                <p class="Error">{{fild.label}}: {{error}}</p>
+                <script>
+                    alert(
+                        "خطا های زیر را اصلاح کنید"
+                    )
+                </script>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+</body>
+</html>
