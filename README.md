@@ -31,10 +31,3 @@ This is a sample personal blog project to showcase skills and portfolio.
 
 ---
 
-### How to add this to your README.md file:
-
-1. Open your project folder.
-2. Create a new file named `README.md` if it doesn’t exist.
-3. Copy the above text (including the markdown syntax) and paste it into `README.md`.
-4. Save the file.
-5. Commit and push the changes to your GitHub repository:
